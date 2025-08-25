@@ -1,11 +1,16 @@
+import React from 'react';
 import { Download, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 
 export function Resume() {
   const handleDownloadPDF = () => {
-    // This would link to your actual PDF file
-    // For now, it just shows an alert
-    alert('PDF download would be implemented here. Place your resume.pdf in the public folder and link to it.');
+    // Create a temporary link to trigger the download
+    const link = document.createElement('a');
+    link.href = '/ActingResumeMostRecent-38Yg7weDfS-cOwDeVh_gbA.pdf';
+    link.download = 'David-Ma-Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handlePrintVersion = () => {
@@ -17,14 +22,6 @@ export function Resume() {
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Action buttons - don't print */}
         <div className="flex justify-end gap-4 mb-8 print:hidden">
-          <Button 
-            onClick={handlePrintVersion}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Print Version
-          </Button>
           <Button 
             onClick={handleDownloadPDF}
             className="flex items-center gap-2"

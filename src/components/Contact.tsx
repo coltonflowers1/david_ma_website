@@ -4,6 +4,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { useState } from 'react';
 import { toast } from 'sonner@2.0.3';
+import emailjs from '@emailjs/browser';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -19,40 +20,29 @@ export function Contact() {
 
     try {
       // Option 1: EmailJS (uncomment and configure if you want to use EmailJS)
-      /*
       // Install EmailJS: npm install @emailjs/browser
       // Then uncomment this section and configure your EmailJS account
       
-      import emailjs from '@emailjs/browser';
-      
+      const now = new Date();
+      const timeString = now.toLocaleTimeString();
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
+        name: formData.name,
+        email: formData.email,
         message: formData.message,
-        to_email: 'davidjma528@gmail.com'
+        time: timeString
       };
 
       await emailjs.send(
-        'YOUR_SERVICE_ID',     // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID',    // Replace with your EmailJS template ID
+        'service_2fmccks',     // Replace with your EmailJS service ID
+        'template_jozpjck',    // Replace with your EmailJS template ID
         templateParams,
-        'YOUR_PUBLIC_KEY'      // Replace with your EmailJS public key
+        'iIaaDhYTWwrX0WYtl'
       );
 
       toast.success('Message sent successfully!');
       setFormData({ name: '', email: '', message: '' });
-      */
 
-      // Option 2: Mailto fallback (currently active)
-      const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      );
-      const mailtoLink = `mailto:davidjma528@gmail.com?subject=${subject}&body=${body}`;
-      
-      window.open(mailtoLink, '_blank');
-      toast.success('Opening your email client...');
-      setFormData({ name: '', email: '', message: '' });
+
 
     } catch (error) {
       console.error('Error sending message:', error);
@@ -71,15 +61,6 @@ export function Contact() {
 
   return (
     <div className="bg-black min-h-screen text-white">
-      {/* Header grid pattern - using the contact image */}
-      <div className="relative h-32 overflow-hidden">
-        <img
-          src="src/assets/images/3e577ec6-8e02-4dd7-a360-32f3bd1be1d3.jpg"
-          alt="Contact header"
-          className="w-full h-full object-cover object-top"
-        />
-        <div className="absolute inset-0 bg-black/50"></div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -135,7 +116,7 @@ export function Contact() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => window.open('mailto:davidjma528@gmail.com', '_blank')}
+                  onClick={() => window.open('mailto:davidjjma628@gmail.com', '_blank')}
                   className="border-gray-600 text-white hover:bg-gray-800"
                 >
                   Direct Email
@@ -155,7 +136,7 @@ export function Contact() {
           <div className="space-y-6">
             <div className="max-w-sm mx-auto lg:mx-0">
               <img
-                src="src/assets/images/David-Ma-Contact-Photo.jpg"
+                src="images/David-Ma-Contact-Photo.jpg"
                 alt="David Ma"
                 className="w-full rounded-lg"
               />
@@ -164,10 +145,10 @@ export function Contact() {
                 <p className="text-sm">
                   <span className="text-gray-400">Email:</span> 
                   <a 
-                    href="mailto:davidjma528@gmail.com" 
+                    href="mailto:davidjjma628@gmail.com" 
                     className="text-blue-400 hover:text-blue-300 ml-1"
                   >
-                    davidjma528@gmail.com
+                    davidjjma628@gmail.com
                   </a>
                 </p>
                 <p className="text-sm">
@@ -203,7 +184,7 @@ export function Contact() {
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
           </a>
-          <a href="mailto:davidjma528@gmail.com" className="text-white hover:text-blue-400 transition-colors" aria-label="Email">
+          <a href="mailto:davidjjma628@gmail.com" className="text-white hover:text-blue-400 transition-colors" aria-label="Email">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>

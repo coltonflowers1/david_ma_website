@@ -7,7 +7,7 @@ export function Bio() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
             <img
-              src="src/assets/images/David-Ma-Actor-Headshot-M95vgq0tEgtl7OPMyUseJg.jpg"
+              src="images/David-Ma-Actor-Headshot-M95vgq0tEgtl7OPMyUseJg.jpg"
               alt="David Ma"
               className="w-full rounded-lg shadow-lg"
             />

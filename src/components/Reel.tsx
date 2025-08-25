@@ -38,11 +38,17 @@ export function Reel() {
 
   return (
     <div className="bg-black min-h-screen text-white">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="max-w-none mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-6xl mx-auto">
           {videos.map((video) => (
-            <div key={video.id} className="aspect-w-16 aspect-h-9 w-full">
-              <VimeoPlayer videoId={video.vimeoId} title={`Reel Video ${video.id}`} className="w-full h-full" />
+            <div key={video.id} className="w-full">
+              <div className="aspect-video">
+                <VimeoPlayer 
+                  videoId={video.vimeoId} 
+                  title={`Reel Video ${video.id}`} 
+                  className="w-full h-full rounded-lg" 
+                />
+              </div>
             </div>
           ))}
         </div>
