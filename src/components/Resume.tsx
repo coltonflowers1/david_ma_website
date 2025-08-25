@@ -6,7 +6,7 @@ export function Resume() {
   const handleDownloadPDF = () => {
     // Create a temporary link to trigger the download
     const link = document.createElement('a');
-    link.href = '/ActingResumeMostRecent-38Yg7weDfS-cOwDeVh_gbA.pdf';
+    link.href = `${import.meta.env.BASE_URL}ActingResumeMostRecent-38Yg7weDfS-cOwDeVh_gbA.pdf`;
     link.download = 'David-Ma-Resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -41,9 +41,9 @@ export function Resume() {
               <span>•</span>
               <span>New York, NY</span>
               <span>•</span>
-              <span>Height: 5'9"</span>
+              <span>Height: 5'11"</span>
               <span>•</span>
-              <span>Weight: 160 lbs</span>
+              <span>Weight: 150 lbs</span>
             </div>
             <div className="mt-2 text-sm">
               <span>IMDb: https://www.imdb.com/name/nm16109998/</span>

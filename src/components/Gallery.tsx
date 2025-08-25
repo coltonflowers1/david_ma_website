@@ -11,7 +11,7 @@ export function Gallery() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
 
   useEffect(() => {
-    fetch('/images/gallery/gallery.json')
+    fetch(`${import.meta.env.BASE_URL}images/gallery/gallery.json`)
       .then(res => res.json())
       .then((files: { src: string; alt: string }[]) => {
         const images = files.map((file, index) => ({
