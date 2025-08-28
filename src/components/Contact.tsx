@@ -1,10 +1,10 @@
-
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner@2.0.3';
 import emailjs from '@emailjs/browser';
+import React from 'react';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -13,46 +13,103 @@ export function Contact() {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    const loadReCaptcha = () => {
+      if (window.grecaptcha) {
+        renderCaptcha();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit';
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+
+      window.onRecaptchaLoad = () => {
+        renderCaptcha();
+      };
+    };
+
+    const renderCaptcha = () => {
+      if (window.grecaptcha && recaptchaRef.current) {
+        window.grecaptcha.render(recaptchaRef.current, {
+          sitekey: '6LcATbUrAAAAAOsR0buKP6g3eZYeInaR8rJ1oMNR', // Replace with your real site key
+          callback: (token) => setCaptchaToken(token),
+          'expired-callback': () => {
+            setCaptchaToken(null);
+            toast.error('reCAPTCHA expired. Please verify again.');
+          },
+          'error-callback': () => {
+            setCaptchaToken(null);
+            toast.error('reCAPTCHA error. Please try again.');
+          }
+        });
+      }
+    };
+
+    loadReCaptcha();
+
+    return () => {
+      const script = document.querySelector('script[src*="recaptcha"]');
+      if (script) script.remove();
+      delete window.onRecaptchaLoad;
+    };
+  }, []);
+
+  const resetCaptcha = () => {
+    if (window.grecaptcha) {
+      window.grecaptcha.reset();
+    }
+    setCaptchaToken(null);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Check if captcha is completed
+    if (!captchaToken) {
+      toast.error('Please complete the reCAPTCHA verification.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Option 1: EmailJS (uncomment and configure if you want to use EmailJS)
-      // Install EmailJS: npm install @emailjs/browser
-      // Then uncomment this section and configure your EmailJS account
-      
       const now = new Date();
       const timeString = now.toLocaleTimeString();
       const templateParams = {
         name: formData.name,
         email: formData.email,
         message: formData.message,
-        time: timeString
+        time: timeString,
+        'g-recaptcha-response': captchaToken // Include captcha token
       };
 
       await emailjs.send(
-        'service_2fmccks',     // Replace with your EmailJS service ID
-        'template_jozpjck',    // Replace with your EmailJS template ID
+        'service_2fmccks',     // Your EmailJS service ID
+        'template_jozpjck',    // Your EmailJS template ID
         templateParams,
-        'iIaaDhYTWwrX0WYtl'
+        'iIaaDhYTWwrX0WYtl'   // Your EmailJS public key
       );
 
       toast.success('Message sent successfully!');
       setFormData({ name: '', email: '', message: '' });
-
-
+      resetCaptcha(); // Reset captcha after successful submission
 
     } catch (error) {
       console.error('Error sending message:', error);
       toast.error('Failed to send message. Please try again.');
+      resetCaptcha(); // Reset captcha on error too
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -61,7 +118,6 @@ export function Contact() {
 
   return (
     <div className="bg-black min-h-screen text-white">
-
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left side - Form */}
@@ -104,11 +160,16 @@ export function Contact() {
                   className="bg-transparent border border-gray-600 text-white placeholder:text-gray-400 focus:border-white resize-none"
                 />
               </div>
+
+              {/* reCAPTCHA */}
+              <div className="flex justify-center">
+                <div ref={recaptchaRef}></div>
+              </div>
               
               <div className="flex items-center space-x-4">
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !captchaToken}
                   className="bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -123,13 +184,6 @@ export function Contact() {
                 </Button>
               </div>
             </form>
-
-            {/* Instructions for different contact methods */}
-            <div className="text-sm text-gray-400 space-y-2">
-              <p><strong>Current setup:</strong> Form opens your email client with pre-filled information.</p>
-              <p><strong>For seamless sending:</strong> Consider setting up EmailJS (instructions in code comments).</p>
-              <p><strong>Alternative services:</strong> Formspree, Netlify Forms, or Vercel Forms also work great.</p>
-            </div>
           </div>
 
           {/* Right side - Photo and contact info */}
