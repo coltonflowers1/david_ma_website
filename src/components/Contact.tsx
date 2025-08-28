@@ -179,7 +179,7 @@ export function Contact() {
                   type="button"
                   variant="outline"
                   onClick={() => window.open('mailto:davidjjma628@gmail.com', '_blank')}
-                  className="border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+                  className="border border-gray-600 text-gray-800 hover:bg-gray-800 hover:text-white"
                 >
                   Direct Email
                 </Button>
