@@ -37,7 +37,7 @@ export function Resume() {
           <div className="text-center border-b-2 border-gray-300 pb-6 mb-8">
             <h1 className="text-4xl font-medium mb-2">DAVID MA</h1>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <span>davidjma528@gmail.com</span>
+              <span>davidjjma628@gmail.com</span>
               <span>•</span>
               <span>New York, NY</span>
               <span>•</span>
