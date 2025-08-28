@@ -1,7 +1,7 @@
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner@2.0.3';
 import emailjs from '@emailjs/browser';
 import React from 'react';
@@ -13,72 +13,64 @@ export function Contact() {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState(null);
-  const recaptchaRef = useRef(null);
+  const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
+
+  // Check if form is complete
+  const isFormComplete = formData.name.trim() && formData.email.trim() && formData.message.trim();
 
   useEffect(() => {
-    const loadReCaptcha = () => {
-      if (window.grecaptcha) {
-        renderCaptcha();
-        return;
-      }
-
+    const loadReCaptchaV3 = () => {
       const script = document.createElement('script');
-      script.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit';
+      script.src = 'https://www.google.com/recaptcha/api.js?render=6LcATbUrAAAAAOsR0buKP6g3eZYeInaR8rJ1oMNR';
       script.async = true;
       script.defer = true;
-      document.head.appendChild(script);
-
-      window.onRecaptchaLoad = () => {
-        renderCaptcha();
+      
+      script.onload = () => {
+        // Wait for reCAPTCHA to be ready
+        if (window.grecaptcha) {
+          window.grecaptcha.ready(() => {
+            setIsRecaptchaReady(true);
+          });
+        }
       };
+      
+      document.head.appendChild(script);
     };
 
-    const renderCaptcha = () => {
-      if (window.grecaptcha && recaptchaRef.current) {
-        window.grecaptcha.render(recaptchaRef.current, {
-          sitekey: '6LcATbUrAAAAAOsR0buKP6g3eZYeInaR8rJ1oMNR', // Replace with your real site key
-          callback: (token) => setCaptchaToken(token),
-          'expired-callback': () => {
-            setCaptchaToken(null);
-            toast.error('reCAPTCHA expired. Please verify again.');
-          },
-          'error-callback': () => {
-            setCaptchaToken(null);
-            toast.error('reCAPTCHA error. Please try again.');
-          }
-        });
-      }
-    };
-
-    loadReCaptcha();
+    loadReCaptchaV3();
 
     return () => {
       const script = document.querySelector('script[src*="recaptcha"]');
       if (script) script.remove();
-      delete window.onRecaptchaLoad;
     };
   }, []);
 
-  const resetCaptcha = () => {
-    if (window.grecaptcha) {
-      window.grecaptcha.reset();
-    }
-    setCaptchaToken(null);
+  const getCaptchaToken = () => {
+    return new Promise((resolve, reject) => {
+      if (window.grecaptcha && window.grecaptcha.ready) {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute('6LcATbUrAAAAAOsR0buKP6g3eZYeInaR8rJ1oMNR', { action: 'contact_form' })
+            .then((token) => {
+              resolve(token);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        });
+      } else {
+        reject(new Error('reCAPTCHA not loaded'));
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Check if captcha is completed
-    if (!captchaToken) {
-      toast.error('Please complete the reCAPTCHA verification.');
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
+      // Get reCAPTCHA token
+      const captchaToken = await getCaptchaToken();
+      
       const now = new Date();
       const timeString = now.toLocaleTimeString();
       const templateParams = {
@@ -86,7 +78,8 @@ export function Contact() {
         email: formData.email,
         message: formData.message,
         time: timeString,
-        'g-recaptcha-response': captchaToken // Include captcha token
+        'g-recaptcha-response': captchaToken,
+        captcha_score: 'v3' // Identifier for v3
       };
 
       await emailjs.send(
@@ -98,12 +91,14 @@ export function Contact() {
 
       toast.success('Message sent successfully!');
       setFormData({ name: '', email: '', message: '' });
-      resetCaptcha(); // Reset captcha after successful submission
 
     } catch (error) {
       console.error('Error sending message:', error);
-      toast.error('Failed to send message. Please try again.');
-      resetCaptcha(); // Reset captcha on error too
+      if (error.message === 'reCAPTCHA not loaded') {
+        toast.error('Security verification failed. Please refresh the page.');
+      } else {
+        toast.error('Failed to send message. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -156,33 +151,46 @@ export function Contact() {
                   value={formData.message}
                   onChange={handleInputChange}
                   required
-                  rows={6}
-                  className="bg-transparent border border-gray-600 text-white placeholder:text-gray-400 focus:border-white resize-none"
+                  rows={8}
+                  className="bg-transparent border border-gray-600 text-white placeholder:text-gray-400 focus:border-white resize-none h-40"
                 />
-              </div>
-
-              {/* reCAPTCHA */}
-              <div className="flex justify-center">
-                <div ref={recaptchaRef}></div>
               </div>
               
               <div className="flex items-center space-x-4">
                 <Button
                   type="submit"
-                  disabled={isSubmitting || !captchaToken}
-                  className="bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50"
+                  disabled={isSubmitting || !isRecaptchaReady || !isFormComplete}
+                  className={`transition-all duration-300 ${
+                    isFormComplete && isRecaptchaReady
+                      ? 'bg-blue-600 hover:bg-blue-700 opacity-100 cursor-pointer' 
+                      : 'bg-gray-600 opacity-50 cursor-not-allowed'
+                  } text-white`}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {!isRecaptchaReady 
+                    ? 'Loading security...' 
+                    : !isFormComplete
+                    ? 'Fill out all fields'
+                    : isSubmitting 
+                    ? 'Sending...' 
+                    : 'Send Message'
+                  }
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => window.open('mailto:davidjjma628@gmail.com', '_blank')}
-                  className="border-gray-600 text-white hover:bg-gray-800"
+                  className="border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
                 >
                   Direct Email
                 </Button>
               </div>
+
+              {/* reCAPTCHA v3 badge appears automatically */}
+              <p className="text-xs text-gray-500">
+                This site is protected by reCAPTCHA and the Google{' '}
+                <a href="https://policies.google.com/privacy" className="text-blue-400 hover:underline">Privacy Policy</a> and{' '}
+                <a href="https://policies.google.com/terms" className="text-blue-400 hover:underline">Terms of Service</a> apply.
+              </p>
             </form>
           </div>
 
