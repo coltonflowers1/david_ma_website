@@ -59,6 +59,6 @@
       "scripts": {
             "dev": "vite",
             "build": "vite build",
-            "deploy": "gh-pages -d build"
+            "deploy": "gh-pages -d build --cname CNAME"
       }
 }
