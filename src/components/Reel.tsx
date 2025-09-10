@@ -8,19 +8,20 @@ interface Video {
 }
 
 export function Reel() {
-
+  // DAVID! ADD/REMOVE VIDEOS HERE!
   const videos: Video[] = [
+    
     {
       id: "1",
-      vimeoId: "1069668959", // Replace with actual Vimeo video ID
+      vimeoId: "1069668959", 
     },
     {
       id: "2",
-      vimeoId: "1000535548", // Replace with actual Vimeo video ID
+      vimeoId: "1000535548", 
     },
     {
       id: "3",
-      vimeoId: "1069672636", // Replace with actual Vimeo video ID
+      vimeoId: "1069672636", 
     },
     {
       id: "4",
