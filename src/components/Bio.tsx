@@ -1,4 +1,5 @@
 
+import React from 'react';
 
 export function Bio() {
   return (
@@ -15,7 +16,7 @@ export function Bio() {
           
           <div className="space-y-6 text-gray-800">
             <p>
-              <span className="font-medium">David Ma</span> is an actor who doesn't just step into a role - he dives in, rolls, 
+              <span className="font-medium">David Ma</span> is an actor who doesn't just <em>step</em> into a role - he dives in, rolls, 
               sprints and sometimes sword-fights his way through it. Based in New York, 
               David is a versatile stage, screen, stunt and voice performer with a range 
               that spans sketch comedy to Shakespeare, indie film to martial arts 
@@ -25,16 +26,16 @@ export function Bio() {
             
             <p>
               His film work includes leading performances in acclaimed short films like 
-              <em> Fumikaso</em> and <em>Translation</em>, where he brought both dramatic weight and 
+              <em> Fumakase</em> and <em>Translation</em>, where he brought both dramatic weight and 
               multilingual fluency to the screen. On stage, he's a regular in <em>A Sketch of 
               New York</em>, the city's longest-running sketch comedy show, and took on both 
-              acting and stunt duties as <span className="font-medium">Titus</span> in <em>Julius Caesar</em> produced by Hudson 
+              acting and stunt duties as <span className="font-medium">Titus</span> in <em>Julius Caeser</em> produced by Hudson 
               Classical Theater Company.
             </p>
             
             <p>
               As a voice actor, David has voiced for national campaigns such as <em>2021 
-              Canadian federal elections</em> and as a moderator for industry panels at <em>Sonic 
+              Canadian federal elections</em> and as a moderator for industry panels at <em>Soho 
               International Film Festival (SIFF)</em> and <em>Hudson International Film Festival (HIFF)</em>
               - earning <span className="font-medium">Best Moderator</span> honors in 2023.
             </p>
@@ -48,7 +49,7 @@ export function Bio() {
             
             <p>
               Off set, David stays busy studying Korean, training regularly in acting and 
-              singing, and connecting with his growing online audience through <span className="font-medium">YouTube</span> 
+              singing, and connecting with his growing online audience through <span className="font-medium">YouTube</span>{" "}
               and <span className="font-medium">TikTok</span>.
             </p>
           </div>
