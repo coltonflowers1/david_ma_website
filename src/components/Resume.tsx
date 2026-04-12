@@ -1,9 +1,10 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import resumePdfUrl from "@/assets/David-Ma-Actor-Resume-2026.pdf?url";
 
 export function Resume() {
-  const pdfUrl = `${import.meta.env.BASE_URL}ActingResume.pdf`; 
+  const pdfUrl = resumePdfUrl; 
 
   return (
     <div className="w-full h-screen bg-white">

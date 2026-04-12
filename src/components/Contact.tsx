@@ -2,21 +2,67 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { useState, useEffect } from 'react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import emailjs from '@emailjs/browser';
 import React from 'react';
+
+const CONTACT_EMAIL = 'davidjjma628@gmail.com';
+
+const emailJsPublicKey =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? 'iIaaDhYTWwrX0WYtl';
+const emailJsServiceId =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID ?? 'service_2fmccks';
+const emailJsTemplateId =
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID ?? 'template_jozpjck';
+
+function getEmailJsErrorDetail(error: unknown): { text: string; status?: number } {
+  if (error && typeof error === 'object') {
+    const o = error as { text?: string; message?: string; status?: number };
+    const text = String(o.text ?? o.message ?? '');
+    const status = typeof o.status === 'number' ? o.status : undefined;
+    return { text, status };
+  }
+  if (error instanceof Error) return { text: error.message };
+  return { text: String(error) };
+}
+
+function isGmailAuthScopeFailure(text: string, status?: number): boolean {
+  const t = text.toLowerCase();
+  return (
+    status === 412 ||
+    t.includes('insufficient authentication scopes') ||
+    t.includes('gmail_api')
+  );
+}
+
+function openMailtoWithForm(subject: string, body: string): void {
+  const url = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const a = document.createElement('a');
+  a.href = url;
+  a.rel = 'noopener noreferrer';
+  a.click();
+}
 
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
 
+  useEffect(() => {
+    emailjs.init({ publicKey: emailJsPublicKey });
+  }, []);
+
   // Check if form is complete
-  const isFormComplete = formData.name.trim() && formData.email.trim() && formData.message.trim();
+  const isFormComplete =
+    formData.name.trim() &&
+    formData.email.trim() &&
+    formData.subject.trim() &&
+    formData.message.trim();
 
   useEffect(() => {
     const loadReCaptchaV3 = () => {
@@ -63,7 +109,7 @@ export function Contact() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -76,6 +122,7 @@ export function Contact() {
       const templateParams = {
         name: formData.name,
         email: formData.email,
+        subject: formData.subject,
         message: formData.message,
         time: timeString,
         'g-recaptcha-response': captchaToken,
@@ -83,28 +130,53 @@ export function Contact() {
       };
 
       await emailjs.send(
-        'service_2fmccks',     // Your EmailJS service ID
-        'template_jozpjck',    // Your EmailJS template ID
+        emailJsServiceId,
+        emailJsTemplateId,
         templateParams,
-        'iIaaDhYTWwrX0WYtl'   // Your EmailJS public key
+        { publicKey: emailJsPublicKey }
       );
 
       toast.success('Message sent successfully!');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '' });
 
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error sending message:', error);
-      if (error.message === 'reCAPTCHA not loaded') {
+      if (error instanceof Error && error.message === 'reCAPTCHA not loaded') {
         toast.error('Security verification failed. Please refresh the page.');
-      } else {
-        toast.error('Failed to send message. Please try again.');
+        return;
       }
+
+      const { text, status } = getEmailJsErrorDetail(error);
+      console.error('EmailJS detail:', text, status);
+
+      if (isGmailAuthScopeFailure(text, status)) {
+        toast.warning(
+          'The site could not send through EmailJS (Gmail needs reconnecting in your EmailJS dashboard). Opening your email app with your message filled in — please send from there.',
+          { duration: 12000 }
+        );
+        const mailtoBody = `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`;
+        openMailtoWithForm(formData.subject, mailtoBody);
+        return;
+      }
+
+      if (status === 403 || /public key|unauthorized/i.test(text)) {
+        toast.error('Email configuration error. Please use Direct Email below.');
+        return;
+      }
+
+      toast.error(
+        text
+          ? `Could not send: ${text.slice(0, 120)}${text.length > 120 ? '…' : ''}`
+          : 'Could not send message. Try Direct Email or try again later.'
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -143,6 +215,17 @@ export function Contact() {
                   />
                 </div>
               </div>
+
+              <div>
+                <Input
+                  name="subject"
+                  placeholder="Subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  required
+                  className="bg-transparent border border-gray-600 text-white placeholder:text-gray-400 focus:border-white"
+                />
+              </div>
               
               <div>
                 <Textarea
@@ -178,7 +261,7 @@ export function Contact() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => window.open('mailto:davidjjma628@gmail.com', '_blank')}
+                  onClick={() => window.open(`mailto:${CONTACT_EMAIL}`, '_blank')}
                   className="border border-gray-600 text-gray-800 hover:bg-gray-800 hover:text-white"
                 >
                   Direct Email
@@ -207,10 +290,10 @@ export function Contact() {
                 <p className="text-sm">
                   <span className="text-gray-400">Email:</span> 
                   <a 
-                    href="mailto:davidjjma628@gmail.com" 
+                    href={`mailto:${CONTACT_EMAIL}`}
                     className="text-blue-400 hover:text-blue-300 ml-1"
                   >
-                    davidjjma628@gmail.com
+                    {CONTACT_EMAIL}
                   </a>
                 </p>
                 <p className="text-sm">
@@ -246,7 +329,7 @@ export function Contact() {
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
           </a>
-          <a href="mailto:davidjjma628@gmail.com" className="text-white hover:text-blue-400 transition-colors" aria-label="Email">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-white hover:text-blue-400 transition-colors" aria-label="Email">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>

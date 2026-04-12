@@ -13,7 +13,7 @@ export function Reel() {
     
     {
       id: "1",
-      vimeoId: "1069668959", 
+      vimeoId: "1145154991", 
     },
     {
       id: "2",
@@ -27,14 +27,6 @@ export function Reel() {
       id: "4",
       vimeoId: "1069478467"
     },
-    {
-      id: "5",
-      vimeoId: "1069674456"
-    },
-    {
-      id: "6",
-      vimeoId: "1069674612"
-    }
   ];
 
   return (
