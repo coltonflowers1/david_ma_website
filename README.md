@@ -19,7 +19,7 @@
   * To modify reels, 
     - add/remove vimeo ids for your vimeo videos to the `videos` list in /Users/coltonflowers/Projects/david_ma_website/src/components/Reel.tsx
   * To change your resume:
-    - replace the existing pdf (with the same name at /Users/coltonflowers/Projects/david_ma_website/public/ActingResume.pdf) with your new one.
+    - replace the existing pdf (same filename) at `src/assets/David-Ma-Actor-Resume-2026.pdf`.
 
   
-  
+  # david_ma_website
