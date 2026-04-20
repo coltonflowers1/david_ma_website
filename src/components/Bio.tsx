@@ -48,8 +48,8 @@ export function Bio() {
             </p>
             
             <p>
-              Off set, David continues to expand his Korean fluency while engaging a growing audience of 4000+ across his social platforms. Alongside his creative work, he is building a
-              media-tech company and holds an engineering degree from Columbia University - bringing a combination of creative instinct, technical rigor, and entrepreneurial drive.
+              Off set, David continues to expand his Korean fluency while engaging a growing audience of 4000+ across his social platforms. Alongside his creative work, 
+              he holds an engineering degree from Columbia University - bringing a combination of creative instinct, technical rigor, and entrepreneurial drive.
             </p>
           </div>
         </div>
