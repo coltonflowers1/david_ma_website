@@ -59,6 +59,6 @@
       "scripts": {
             "dev": "vite",
             "build": "vite build",
-            "deploy": "gh-pages -d build --cname CNAME"
+            "deploy": "gh-pages -d build --cname davidjma.com"
       }
 }
