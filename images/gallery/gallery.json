@@ -1,15 +1,58 @@
 [
-  { "src": "David-Ma-Actor-Boxer.jpg", "alt": "David Ma Actor Boxer" },
-  { "src": "David-Ma-Actor-Gangster.jpg", "alt": "David Ma Actor Gangster" },
-  { "src": "David-Ma-Actor-Mafia.jpg", "alt": "David Ma Actor Mafia" },
-  { "src": "David-Ma-Actor-Model-Chef-Assasin.jpg", "alt": "David Ma Actor Model Chef Assassin" },
-  { "src": "David-Ma-Actor-Model-Cocky.jpg", "alt": "David Ma Actor Model Cocky" },
-  { "src": "David-Ma-Actor-Model-Exercise.jpg", "alt": "David Ma Actor Model Exercise" },
-  { "src": "David-Ma-Actor-Model-Fashion-Star.jpg", "alt": "David Ma Actor Model Fashion Star" },
-  { "src": "David-Ma-Actor-Model-Programmer-Student.jpg", "alt": "David Ma Actor Model Programmer Student" },
-  { "src": "David-Ma-Actor-Model-Student.jpg", "alt": "David Ma Actor Model Student" },
-  { "src": "David-Ma-Actor-Photographer.jpg", "alt": "David Ma Actor Photographer" },
-  { "src": "David-Ma-Actor-Conference-Speaker.png", "alt": "David Ma Actor Conference Speaker" },
-  { "src": "David-Ma-Actor-Model-Marathon-Runner.png", "alt": "David Ma Actor Model Marathon Runner" },
-  { "src": "David-Ma-Actor-Project-Manager.png", "alt": "David Ma Actor Project Manager" }
+  {
+    "src": "David-Ma-Actor-Boxer.jpg",
+    "alt": "David Ma Actor Boxer"
+  },
+  {
+    "src": "David-Ma-Actor-Conference-Speaker.png",
+    "alt": "David Ma Actor Conference Speaker"
+  },
+  {
+    "src": "David-Ma-Actor-Gangster.jpg",
+    "alt": "David Ma Actor Gangster"
+  },
+  {
+    "src": "David-Ma-Actor-Mafia.jpg",
+    "alt": "David Ma Actor Mafia"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Chef-Assasin.jpg",
+    "alt": "David Ma Actor Model Chef Assasin"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Cocky.jpg",
+    "alt": "David Ma Actor Model Cocky"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Exercise.jpg",
+    "alt": "David Ma Actor Model Exercise"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Fashion-Star.jpg",
+    "alt": "David Ma Actor Model Fashion Star"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Fashionc.jpeg",
+    "alt": "David Ma Actor Model Fashionc"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Marathon-Runner.png",
+    "alt": "David Ma Actor Model Marathon Runner"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Programmer-Student.jpg",
+    "alt": "David Ma Actor Model Programmer Student"
+  },
+  {
+    "src": "David-Ma-Actor-Model-Student.jpg",
+    "alt": "David Ma Actor Model Student"
+  },
+  {
+    "src": "David-Ma-Actor-Photographer.jpg",
+    "alt": "David Ma Actor Photographer"
+  },
+  {
+    "src": "David-Ma-Actor-Project-Manager.png",
+    "alt": "David Ma Actor Project Manager"
+  }
 ]
