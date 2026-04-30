@@ -1,110 +1,191 @@
 [
   {
     "src": "David-Ma-Actor-Chef-Assasin.jpg",
-    "alt": "David Ma Actor Chef Assasin"
+    "alt": "David Ma Actor Chef Assasin",
+    "w": 886,
+    "h": 668,
+    "aspect": 0.75395
   },
   {
     "src": "David-Ma-Actor-Gangster.jpg",
-    "alt": "David Ma Actor Gangster"
+    "alt": "David Ma Actor Gangster",
+    "w": 976,
+    "h": 1464,
+    "aspect": 1.5
   },
   {
     "src": "David-Ma-Actor-HalfBody.jpg",
-    "alt": "David Ma Actor HalfBody"
+    "alt": "David Ma Actor HalfBody",
+    "w": 2784,
+    "h": 4176,
+    "aspect": 1.5
   },
   {
     "src": "David-Ma-Actor-Headshot-Happy.jpg",
-    "alt": "David Ma Actor Headshot Happy"
+    "alt": "David Ma Actor Headshot Happy",
+    "w": 4176,
+    "h": 2784,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Actor-Mafia.jpg",
-    "alt": "David Ma Actor Mafia"
+    "alt": "David Ma Actor Mafia",
+    "w": 976,
+    "h": 1466,
+    "aspect": 1.502049
   },
   {
     "src": "David-Ma-Actor-Model-Cocky.jpg",
-    "alt": "David Ma Actor Model Cocky"
+    "alt": "David Ma Actor Model Cocky",
+    "w": 1024,
+    "h": 1532,
+    "aspect": 1.496094
   },
   {
     "src": "David-Ma-Actor-Model-Exercise.jpg",
-    "alt": "David Ma Actor Model Exercise"
+    "alt": "David Ma Actor Model Exercise",
+    "w": 976,
+    "h": 1464,
+    "aspect": 1.5
   },
   {
     "src": "David-Ma-Actor-Model-Full-Body.jpg",
-    "alt": "David Ma Actor Model Full Body"
+    "alt": "David Ma Actor Model Full Body",
+    "w": 861,
+    "h": 1616,
+    "aspect": 1.876887
   },
   {
     "src": "David-Ma-Actor-Model-Marathon-Runner.png",
-    "alt": "David Ma Actor Model Marathon Runner"
+    "alt": "David Ma Actor Model Marathon Runner",
+    "w": 700,
+    "h": 405,
+    "aspect": 0.578571
   },
   {
     "src": "David-Ma-Actor-Model-Photographer.jpg",
-    "alt": "David Ma Actor Model Photographer"
+    "alt": "David Ma Actor Model Photographer",
+    "w": 586,
+    "h": 962,
+    "aspect": 1.641638
   },
   {
     "src": "David-Ma-Actor-Model-Project-Manager.png",
-    "alt": "David Ma Actor Model Project Manager"
+    "alt": "David Ma Actor Model Project Manager",
+    "w": 550,
+    "h": 721,
+    "aspect": 1.310909
   },
   {
     "src": "David-Ma-Actor-Model-Stretching.jpg",
-    "alt": "David Ma Actor Model Stretching"
+    "alt": "David Ma Actor Model Stretching",
+    "w": 5568,
+    "h": 3712,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Actor-Model-Student.jpg",
-    "alt": "David Ma Actor Model Student"
+    "alt": "David Ma Actor Model Student",
+    "w": 976,
+    "h": 1464,
+    "aspect": 1.5
   },
   {
     "src": "David-Ma-Model-Bicycle.jpg",
-    "alt": "David Ma Model Bicycle"
+    "alt": "David Ma Model Bicycle",
+    "w": 5568,
+    "h": 3712,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Model-Boxer.jpg",
-    "alt": "David Ma Model Boxer"
+    "alt": "David Ma Model Boxer",
+    "w": 528,
+    "h": 792,
+    "aspect": 1.5
   },
   {
     "src": "David-Ma-Model-Conference-Speaker.png",
-    "alt": "David Ma Model Conference Speaker"
+    "alt": "David Ma Model Conference Speaker",
+    "w": 506,
+    "h": 675,
+    "aspect": 1.333992
   },
   {
     "src": "David-Ma-Model-Fashion-Star.jpg",
-    "alt": "David Ma Model Fashion Star"
+    "alt": "David Ma Model Fashion Star",
+    "w": 976,
+    "h": 1221,
+    "aspect": 1.251025
   },
   {
     "src": "David-Ma-Model-FashionIndia.jpeg",
-    "alt": "David Ma Model FashionIndia"
+    "alt": "David Ma Model FashionIndia",
+    "w": 576,
+    "h": 721,
+    "aspect": 1.251736
   },
   {
     "src": "David-Ma-Model-HalfMarathon-Running.jpg",
-    "alt": "David Ma Model HalfMarathon Running"
+    "alt": "David Ma Model HalfMarathon Running",
+    "w": 4000,
+    "h": 2666,
+    "aspect": 0.6665
   },
   {
     "src": "David-Ma-Model-Party.JPG",
-    "alt": "David Ma Model Party"
+    "alt": "David Ma Model Party",
+    "w": 6720,
+    "h": 4480,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Model-Programmer-Student.jpg",
-    "alt": "David Ma Model Programmer Student"
+    "alt": "David Ma Model Programmer Student",
+    "w": 253,
+    "h": 169,
+    "aspect": 0.667984
   },
   {
     "src": "David-Ma-Model-Runner.jpg",
-    "alt": "David Ma Model Runner"
+    "alt": "David Ma Model Runner",
+    "w": 4176,
+    "h": 2784,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Model-Shy.jpg",
-    "alt": "David Ma Model Shy"
+    "alt": "David Ma Model Shy",
+    "w": 5472,
+    "h": 3648,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Model-StreetFighter.jpg",
-    "alt": "David Ma Model StreetFighter"
+    "alt": "David Ma Model StreetFighter",
+    "w": 6192,
+    "h": 4128,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Model-Surprised.jpg",
-    "alt": "David Ma Model Surprised"
+    "alt": "David Ma Model Surprised",
+    "w": 5472,
+    "h": 3648,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Model-TechBro.jpg",
-    "alt": "David Ma Model TechBro"
+    "alt": "David Ma Model TechBro",
+    "w": 6192,
+    "h": 4128,
+    "aspect": 0.666667
   },
   {
     "src": "David-Ma-Model-Unhappy.jpg",
-    "alt": "David Ma Model Unhappy"
+    "alt": "David Ma Model Unhappy",
+    "w": 5472,
+    "h": 3648,
+    "aspect": 0.666667
   }
 ]
